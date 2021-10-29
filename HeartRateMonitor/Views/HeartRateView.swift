@@ -104,6 +104,10 @@ extension HeartRateView {
         }
     }
 
+    private func stopMeasurement() {
+        vm.timer.invalidate()
+    }
+
     func handle(buffer: CMSampleBuffer) {
         var redMean: CGFloat = 0.0
         var greenMean: CGFloat = 0.0
@@ -128,11 +132,11 @@ extension HeartRateView {
         for pixel in UnsafeBufferPointer(start: bytes.baseAddress, count: bytes.count) {
             switch bgraIndex {
             case 0:
-                blueMean = CGFloat (pixel)
+                blueMean = CGFloat(pixel)
             case 1:
-                greenMean = CGFloat (pixel)
+                greenMean = CGFloat(pixel)
             case 2:
-                redMean = CGFloat (pixel)
+                redMean = CGFloat(pixel)
             case 3:
                 break
             default:
@@ -142,9 +146,9 @@ extension HeartRateView {
         }
 
         let hsv = rgb2hsv((red: redMean, green: greenMean, blue: blueMean, alpha: 1.0))
-        Logger.d(hsv)
+//        Logger.d(hsv)
         // Do a sanity check to see if a finger is placed over the camera
-        if (hsv.1 > 0.5 && hsv.2 > 0.5) {
+        if (hsv.0 > 0.6 && hsv.1 > 0.5 && hsv.2 > 0.5) {
             Task {
                 message = txtHold
                 self.toggleTorch(status: true)
@@ -163,10 +167,12 @@ extension HeartRateView {
             }
         } else {
             Task {
+                stopMeasurement()
                 vm.validFrameCounter = 0
                 vm.measurementStartedFlag = false
                 vm.pulseDetector.reset()
                 message = txtCover
+                pulseMessage = ""
             }
         }
     }
