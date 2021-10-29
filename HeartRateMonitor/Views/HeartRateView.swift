@@ -11,15 +11,15 @@ import AVFoundation
 struct HeartRateView: View {
     @StateObject private var vm = HeartRateViewModel()
     @State private var pulse: Float = 0
-    @State private var pulseOpacity: Double = 0
-    @State private var pulseIsHidden = true
     @State private var pulseMessage = ""
     @State private var message = ""
     @State private var isMeasurementStarted = false
     @State private var timer: Timer?
+    @State private var analyzingCount = 1
 
     private let txtHold = "Hold your index finger ☝️ still."
     private let txtCover = "Cover the back camera until the image turns red 🟥"
+    private let txtAnalyzing = "Analyzing"
 
     var body: some View {
         VStack {
@@ -29,11 +29,8 @@ struct HeartRateView: View {
             Text(message)
                 .font(.system(size: 14))
                 .padding(.bottom, 10)
-            if !pulseIsHidden {
-                Text(pulseMessage)
-                    .opacity(pulseOpacity)
-                    .font(.system(size: 14))
-            }
+            Text(pulseMessage)
+                .font(.system(size: 14))
         }
             .padding()
             .onAppear {
@@ -88,18 +85,14 @@ extension HeartRateView {
                 let average = vm.pulseDetector.getAverage()
                 let pulse = 60.0 / average
                 if pulse == -60 {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        pulseOpacity = 0
-                    }) { finished in
-                        pulseIsHidden = finished
+                    // display loading message
+                    pulseMessage = "\(txtAnalyzing)\(String(repeating: ".", count: analyzingCount))"
+                    analyzingCount += 1
+                    if analyzingCount > 3 {
+                        analyzingCount = 1
                     }
                 } else {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        pulseOpacity = 1.0
-                    }) { _ in
-                        pulseIsHidden = false
-                        pulseMessage = "\(lroundf(pulse)) BPM"
-                    }
+                    pulseMessage = "\(lroundf(pulse)) BPM"
                 }
             })
         }
