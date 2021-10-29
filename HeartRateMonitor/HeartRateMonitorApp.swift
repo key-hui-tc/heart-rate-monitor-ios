@@ -9,9 +9,40 @@ import SwiftUI
 
 @main
 struct HeartRateMonitorApp: App {
+    @Environment(\.scenePhase) var scenePhase
+
+    private let apiManager = ApiManager()
+    @ObservedObject private var userManager = UserManager()
+
+    init() {
+        Logger.d("init")
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if !userManager.isLogged {
+                HomeView()
+                    .environmentObject(userManager)
+                    .environmentObject(apiManager)
+//                    .animation(.easeOut(duration: 0.5))
+                    .transition(.move(edge: .trailing))
+            } else {
+                LoginView()
+                    .environmentObject(userManager)
+                    .environmentObject(apiManager)
+            }
+        }.onChange(of: scenePhase) { newScenePhase in
+            switch newScenePhase {
+            case .active:
+                Logger.d("active")
+            case .background:
+                Logger.d("background")
+            case .inactive:
+                Logger.d("inactive")
+            @unknown default:
+                Logger.d("unknown")
+            }
         }
     }
+
 }
