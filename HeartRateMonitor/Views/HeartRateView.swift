@@ -9,12 +9,14 @@ import SwiftUI
 import AVFoundation
 
 struct HeartRateView: View {
-    @StateObject var vm = HeartRateViewModel()
-    @State var pulse: Float = 0
-    @State var pulseOpacity: Double = 0
-    @State var pulseIsHidden = true
-    @State var pulseMessage = ""
-    @State var message = ""
+    @StateObject private var vm = HeartRateViewModel()
+    @State private var pulse: Float = 0
+    @State private var pulseOpacity: Double = 0
+    @State private var pulseIsHidden = true
+    @State private var pulseMessage = ""
+    @State private var message = ""
+    @State private var isMeasurementStarted = false
+    @State private var timer: Timer?
 
     private let txtHold = "Hold your index finger ☝️ still."
     private let txtCover = "Cover the back camera until the image turns red 🟥"
@@ -50,27 +52,26 @@ struct HeartRateView_Previews: PreviewProvider {
 
 extension HeartRateView {
 
-    private func onAppear() {
+    private func resetMessages() {
         message = txtCover
-        initVideoCapture()
-        initCaptureSession()
+        pulseMessage = ""
     }
 
-    private func onDisappear() {
-        deinitCaptureSession()
-    }
+    private func onAppear() {
+        // reset ui
+        resetMessages()
 
-    private func initVideoCapture() {
+        // init video capture
         vm.imageBufferHandler = { imageBuffer in
             self.handle(buffer: imageBuffer)
         }
-    }
 
-    private func initCaptureSession() {
+        // init capture session
         vm.startCapture()
     }
 
-    private func deinitCaptureSession() {
+    private func onDisappear() {
+        // deinit capture session
         vm.stopCapture()
         toggleTorch(status: false)
     }
@@ -82,8 +83,8 @@ extension HeartRateView {
 
     private func startMeasurement() {
         Task {
-            self.toggleTorch(status: true)
-            vm.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            toggleTorch(status: true)
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
                 let average = vm.pulseDetector.getAverage()
                 let pulse = 60.0 / average
                 if pulse == -60 {
@@ -105,75 +106,22 @@ extension HeartRateView {
     }
 
     private func stopMeasurement() {
-        vm.timer.invalidate()
+        timer?.invalidate()
     }
 
     func handle(buffer: CMSampleBuffer) {
-        var redMean: CGFloat = 0.0
-        var greenMean: CGFloat = 0.0
-        var blueMean: CGFloat = 0.0
-
-        let pixelBuffer = CMSampleBufferGetImageBuffer(buffer)
-        let cameraImage = CIImage(cvPixelBuffer: pixelBuffer!)
-
-        let extent = cameraImage.extent
-        let inputExtent = CIVector(x: extent.origin.x, y: extent.origin.y, z: extent.size.width, w: extent.size.height)
-        let averageFilter = CIFilter(name: "CIAreaAverage",
-                                     parameters: [kCIInputImageKey: cameraImage, kCIInputExtentKey: inputExtent])!
-        let outputImage = averageFilter.outputImage!
-
-        let ctx = CIContext(options: nil)
-        let cgImage = ctx.createCGImage(outputImage, from: outputImage.extent)!
-
-        let rawData: NSData = cgImage.dataProvider!.data!
-        let pixels = rawData.bytes.assumingMemoryBound(to: UInt8.self)
-        let bytes = UnsafeBufferPointer<UInt8>(start: pixels, count: rawData.length)
-        var bgraIndex = 0
-        for pixel in UnsafeBufferPointer(start: bytes.baseAddress, count: bytes.count) {
-            switch bgraIndex {
-            case 0:
-                blueMean = CGFloat(pixel)
-            case 1:
-                greenMean = CGFloat(pixel)
-            case 2:
-                redMean = CGFloat(pixel)
-            case 3:
-                break
-            default:
-                break
-            }
-            bgraIndex += 1
-        }
-
-        let hsv = rgb2hsv((red: redMean, green: greenMean, blue: blueMean, alpha: 1.0))
-//        Logger.d(hsv)
-        // Do a sanity check to see if a finger is placed over the camera
-        if (hsv.0 > 0.6 && hsv.1 > 0.5 && hsv.2 > 0.5) {
-            Task {
-                message = txtHold
-                self.toggleTorch(status: true)
-                if !vm.measurementStartedFlag {
-                    startMeasurement()
-                    vm.measurementStartedFlag = true
-                }
-
-                vm.validFrameCounter += 1
-                vm.inputs.append(hsv.0)
-                // Filter the hue value - the filter is a simple BAND PASS FILTER that removes any DC component and any high frequency noise
-                let filtered = vm.hueFilter.processValue(value: Double(hsv.0))
-                if vm.validFrameCounter > 60 {
-                    _ = vm.pulseDetector.addNewValue(newVal: filtered, atTime: CACurrentMediaTime())
-                }
+        let isPassed = vm.handle(buffer: buffer)
+        if isPassed {
+            message = txtHold
+            toggleTorch(status: true)
+            if !isMeasurementStarted {
+                startMeasurement()
+                isMeasurementStarted = true
             }
         } else {
-            Task {
-                stopMeasurement()
-                vm.validFrameCounter = 0
-                vm.measurementStartedFlag = false
-                vm.pulseDetector.reset()
-                message = txtCover
-                pulseMessage = ""
-            }
+            isMeasurementStarted = false
+            stopMeasurement()
+            resetMessages()
         }
     }
 
