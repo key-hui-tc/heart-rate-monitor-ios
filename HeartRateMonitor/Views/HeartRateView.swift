@@ -11,9 +11,9 @@ import AVFoundation
 struct HeartRateView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var apiManager: ApiManager
-    
+
     @StateObject private var vm = HeartRateViewModel()
-    
+
     @State private var pulse: Float = 0
     @State private var pulseMessage = ""
     @State private var message = ""
@@ -23,7 +23,7 @@ struct HeartRateView: View {
 
     private let txtHold = "Hold your index finger ☝️ still."
     private let txtCover = "Cover the back camera until the image turns red 🟥"
-    private let txtAnalyzing = "Analyzing"
+    private let txtAnalyzing = "Detecting"
 
     var body: some View {
         VStack {

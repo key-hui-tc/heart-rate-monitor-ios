@@ -36,7 +36,7 @@ struct LoginView: View {
             return
         }
 
-        // remote
+        // call api
         let request = LoginRequest(username: username, password: password)
         Task {
             let response = await apiManager.customer.login(request: request)

@@ -5,4 +5,8 @@
 //  Created by Key Hui on 29/10/2021.
 //
 
-struct PdfResponse: BaseResponse { }
+import Foundation
+
+struct PdfResponse: BaseResponse {
+    let data: Data
+}
