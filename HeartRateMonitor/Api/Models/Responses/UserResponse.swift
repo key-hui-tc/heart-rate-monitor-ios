@@ -6,6 +6,7 @@
 //
 
 struct UserResponse: BaseResponse {
+    let id: Int64
     let firstName: String
     let lastName: String
     let email: String

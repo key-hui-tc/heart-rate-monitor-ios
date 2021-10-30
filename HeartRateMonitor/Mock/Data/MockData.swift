@@ -7,10 +7,14 @@
 
 import UIKit
 
-struct MockUtils {
+struct MockData {
     static let username = "Tester"
     static let password = "pass"
     static let pdfUrl = URL(string: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")!
+
+    static let pdfResponse: PdfResponse = {
+        return PdfResponse(data: Data(), url: pdfUrl)
+    }()
 
     static let geneticResponse: GeneticResponse = {
         var arr = Array<GenotypeModel>()
@@ -31,8 +35,6 @@ struct MockUtils {
         arr.append(GenotypeModel(name: "Not T", symbol: "V"))
         arr.append(GenotypeModel(name: "Any one base", symbol: "N"))
         arr.append(GenotypeModel(name: "Gap", symbol: "-"))
-        // duplicate
-        arr.append(contentsOf: arr)
         arr.shuffle()
         return GeneticResponse(genotypes: arr)
     }()
@@ -43,6 +45,7 @@ struct MockUtils {
 
     static let userResponse: UserResponse = {
         return UserResponse(
+            id: 0,
             firstName: "Tester",
             lastName: "Demo",
             email: "test@eaxmple.com",

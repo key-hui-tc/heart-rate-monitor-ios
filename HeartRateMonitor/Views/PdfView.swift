@@ -32,7 +32,7 @@ struct PdfView: View {
 }
 
 struct PdfView_Previews: PreviewProvider {
-    @State static var url: URL? = MockUtils.pdfUrl
+    @State static var url: URL? = MockData.pdfUrl
     @State static var data: Data? = Data()
 
     static var previews: some View {

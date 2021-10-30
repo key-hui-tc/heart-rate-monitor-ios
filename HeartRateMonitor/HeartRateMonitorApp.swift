@@ -16,11 +16,15 @@ struct HeartRateMonitorApp: App {
 
     init() {
         Logger.d("init")
+        if AppGlobal.mock {
+            userManager = MockUserManager()
+            apiManager = MockApiManager()
+        }
     }
 
     var body: some Scene {
         WindowGroup {
-            if !userManager.isLogged {
+            if userManager.isLogged {
                 HomeView()
                     .environmentObject(userManager)
                     .environmentObject(apiManager)

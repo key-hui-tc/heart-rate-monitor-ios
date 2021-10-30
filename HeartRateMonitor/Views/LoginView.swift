@@ -39,7 +39,7 @@ struct LoginView: View {
         // call api
         let request = LoginRequest(username: username, password: password)
         Task {
-            let response = await apiManager.customer.login(request: request)
+            let response = await apiManager.customer().login(request: request)
             Logger.d(response)
             if let token = response?.token {
                 userManager.login(token: token)
@@ -78,8 +78,8 @@ struct LoginView: View {
         }.onAppear {
             #if DEBUG
                 if AppGlobal.mock {
-                    username = MockUtils.username
-                    password = MockUtils.password
+                    username = MockData.username
+                    password = MockData.password
                 }
             #endif
         }

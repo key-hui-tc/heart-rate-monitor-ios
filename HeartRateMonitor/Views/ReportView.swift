@@ -63,8 +63,8 @@ extension ReportView {
                 errMessage = "Missing userId"
                 return
             }
-            let response = await apiManager.genetics.getGeneticDetails(id: userId)
-            Logger.d(response)
+            let response = await apiManager.genetics().getGeneticDetails(id: userId)
+//            Logger.d(response)
             genotypes = response?.genotypes ?? []
         }
     }
@@ -77,8 +77,8 @@ extension ReportView {
                 errMessage = "Missing userId"
                 return
             }
-            let response = await apiManager.genetics.getHealthReport(id: userId)
-            Logger.d(response)
+            let response = await apiManager.genetics().getHealthReport(id: userId)
+//            Logger.d(response)
             guard let response = response else {
                 isPresentedAlert = true
                 errMessage = "Missing response data"

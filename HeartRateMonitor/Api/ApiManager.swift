@@ -12,13 +12,15 @@
 import SwiftUI
 
 class ApiManager: ObservableObject {
+    func customer() -> CustomerService {
+        return CustomerService()
+    }
 
-    // services
-    let customer = CustomerService()
-    let genetics = GeneticsService()
-    let lifestyle = LifestyleService()
+    func genetics() -> GeneticsService {
+        return GeneticsService()
+    }
 
-    init() {
-        Logger.d("Init")
+    func lifestyle() -> LifestyleService {
+        return LifestyleService()
     }
 }

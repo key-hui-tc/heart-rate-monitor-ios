@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3F195B69272D6D4E008DFFFE /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B68272D6D4E008DFFFE /* UserResponse.swift */; };
 		3F195B6B272D6E78008DFFFE /* AppGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B6A272D6E78008DFFFE /* AppGlobal.swift */; };
+		3F195B6E272D7FC1008DFFFE /* MockUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B6D272D7FC1008DFFFE /* MockUserManager.swift */; };
+		3F195B70272D8CF4008DFFFE /* MockApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B6F272D8CF4008DFFFE /* MockApiManager.swift */; };
+		3F195B76272D8D46008DFFFE /* MockCustomerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B75272D8D46008DFFFE /* MockCustomerService.swift */; };
+		3F195B78272D8D5A008DFFFE /* MockGeneticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B77272D8D5A008DFFFE /* MockGeneticsService.swift */; };
+		3F195B7A272D8D70008DFFFE /* MockLifestyleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B79272D8D70008DFFFE /* MockLifestyleService.swift */; };
 		3F24057F272D00730069E5B5 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24057E272D00730069E5B5 /* ReportView.swift */; };
 		3F54D7682728512500917576 /* HeartRateMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7672728512500917576 /* HeartRateMonitorApp.swift */; };
 		3F54D76A2728512500917576 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7692728512500917576 /* LoginView.swift */; };
@@ -17,7 +22,7 @@
 		3F54D7792728512700917576 /* HeartRateMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7782728512700917576 /* HeartRateMonitorTests.swift */; };
 		3F54D7832728512700917576 /* HeartRateMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7822728512700917576 /* HeartRateMonitorUITests.swift */; };
 		3F54D7852728512700917576 /* HeartRateMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7842728512700917576 /* HeartRateMonitorUITestsLaunchTests.swift */; };
-		3F5E91A9272D42840084A548 /* MockUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5E91A8272D42840084A548 /* MockUtils.swift */; };
+		3F5E91A9272D42840084A548 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5E91A8272D42840084A548 /* MockData.swift */; };
 		3F5E91AB272D43B80084A548 /* PdfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5E91AA272D43B80084A548 /* PdfView.swift */; };
 		CE3520982728E6BB005DDB68 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3520972728E6BB005DDB68 /* ApiManager.swift */; };
 		CE35209A2728E6CE005DDB68 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3520992728E6CE005DDB68 /* BaseModel.swift */; };
@@ -74,6 +79,11 @@
 /* Begin PBXFileReference section */
 		3F195B68272D6D4E008DFFFE /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		3F195B6A272D6E78008DFFFE /* AppGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobal.swift; sourceTree = "<group>"; };
+		3F195B6D272D7FC1008DFFFE /* MockUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserManager.swift; sourceTree = "<group>"; };
+		3F195B6F272D8CF4008DFFFE /* MockApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiManager.swift; sourceTree = "<group>"; };
+		3F195B75272D8D46008DFFFE /* MockCustomerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCustomerService.swift; sourceTree = "<group>"; };
+		3F195B77272D8D5A008DFFFE /* MockGeneticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGeneticsService.swift; sourceTree = "<group>"; };
+		3F195B79272D8D70008DFFFE /* MockLifestyleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLifestyleService.swift; sourceTree = "<group>"; };
 		3F24057E272D00730069E5B5 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		3F54D7642728512500917576 /* HeartRateMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeartRateMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F54D7672728512500917576 /* HeartRateMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorApp.swift; sourceTree = "<group>"; };
@@ -85,7 +95,7 @@
 		3F54D77E2728512700917576 /* HeartRateMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeartRateMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F54D7822728512700917576 /* HeartRateMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorUITests.swift; sourceTree = "<group>"; };
 		3F54D7842728512700917576 /* HeartRateMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		3F5E91A8272D42840084A548 /* MockUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUtils.swift; sourceTree = "<group>"; };
+		3F5E91A8272D42840084A548 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		3F5E91AA272D43B80084A548 /* PdfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfView.swift; sourceTree = "<group>"; };
 		CE3520972728E6BB005DDB68 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		CE3520992728E6CE005DDB68 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -148,6 +158,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F195B6C272D7FA7008DFFFE /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3F195B71272D8D1A008DFFFE /* Api */,
+				3F195B72272D8D1F008DFFFE /* Core */,
+				3F195B73272D8D28008DFFFE /* Data */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		3F195B71272D8D1A008DFFFE /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				3F195B6F272D8CF4008DFFFE /* MockApiManager.swift */,
+				3F195B74272D8D34008DFFFE /* Services */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		3F195B72272D8D1F008DFFFE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3F195B6D272D7FC1008DFFFE /* MockUserManager.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3F195B73272D8D28008DFFFE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3F5E91A8272D42840084A548 /* MockData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3F195B74272D8D34008DFFFE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3F195B75272D8D46008DFFFE /* MockCustomerService.swift */,
+				3F195B77272D8D5A008DFFFE /* MockGeneticsService.swift */,
+				3F195B79272D8D70008DFFFE /* MockLifestyleService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		3F54D75B2728512500917576 = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +233,7 @@
 				CE3520A02728F78C005DDB68 /* Extensions */,
 				3F54D7672728512500917576 /* HeartRateMonitorApp.swift */,
 				CE9B3794272BE92800DB6CA1 /* Info.plist */,
+				3F195B6C272D7FA7008DFFFE /* Mock */,
 				CE9B3782272B92AA00DB6CA1 /* Models */,
 				3F54D76D2728512700917576 /* Preview Content */,
 				CE35209D2728F565005DDB68 /* Utils */,
@@ -241,7 +297,6 @@
 				CE9B3795272BE96B00DB6CA1 /* FileUtils.swift */,
 				CE9B3785272B936A00DB6CA1 /* Filter.swift */,
 				CE35209E2728F573005DDB68 /* Logger.swift */,
-				3F5E91A8272D42840084A548 /* MockUtils.swift */,
 				CE9B3787272B93DF00DB6CA1 /* PulseDetector.swift */,
 			);
 			path = Utils;
@@ -470,16 +525,20 @@
 				CE9B3784272B92BE00DB6CA1 /* VideoSpec.swift in Sources */,
 				CE9B3791272BE2A500DB6CA1 /* VoidResponse.swift in Sources */,
 				CE3520982728E6BB005DDB68 /* ApiManager.swift in Sources */,
+				3F195B6E272D7FC1008DFFFE /* MockUserManager.swift in Sources */,
 				CE3AB37E272A4EA700781131 /* HomeView.swift in Sources */,
 				CE3520A9272908A1005DDB68 /* ApiError.swift in Sources */,
 				CE3520A22728F79F005DDB68 /* String+.swift in Sources */,
+				3F195B7A272D8D70008DFFFE /* MockLifestyleService.swift in Sources */,
 				CE9B3788272B93DF00DB6CA1 /* PulseDetector.swift in Sources */,
+				3F195B76272D8D46008DFFFE /* MockCustomerService.swift in Sources */,
 				CE8CF91C272952E700C5BC5F /* GeneticsService.swift in Sources */,
 				CE9B3793272BE57C00DB6CA1 /* PdfResponse.swift in Sources */,
 				3F195B69272D6D4E008DFFFE /* UserResponse.swift in Sources */,
 				CE9B378D272B962F00DB6CA1 /* CameraType.swift in Sources */,
 				CE8CF91E2729531100C5BC5F /* BaseApiService.swift in Sources */,
-				3F5E91A9272D42840084A548 /* MockUtils.swift in Sources */,
+				3F5E91A9272D42840084A548 /* MockData.swift in Sources */,
+				3F195B70272D8CF4008DFFFE /* MockApiManager.swift in Sources */,
 				3F5E91AB272D43B80084A548 /* PdfView.swift in Sources */,
 				CE8CF91427294D5300C5BC5F /* UserManager.swift in Sources */,
 				CE35209A2728E6CE005DDB68 /* BaseModel.swift in Sources */,
@@ -495,6 +554,7 @@
 				CE9B3781272B923600DB6CA1 /* AVCaptureDevice+.swift in Sources */,
 				CE3AB382272A98E100781131 /* HeartRateView.swift in Sources */,
 				CE3AB380272A98B500781131 /* ProfileView.swift in Sources */,
+				3F195B78272D8D5A008DFFFE /* MockGeneticsService.swift in Sources */,
 				CE3520A5272907B2005DDB68 /* LoginRequest.swift in Sources */,
 				CE8CF91A272952CF00C5BC5F /* CustomerService.swift in Sources */,
 				CE3AB37B272A327400781131 /* BaseResponse.swift in Sources */,
