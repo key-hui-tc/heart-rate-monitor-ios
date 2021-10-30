@@ -9,7 +9,6 @@ import Foundation
 
 // TODO: no user id to start with, so I added it
 struct UserModel: BaseModel {
-    let id: Int64
     let firstname: String
     let lastname: String
     let email: String

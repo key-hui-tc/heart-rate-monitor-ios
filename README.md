@@ -5,6 +5,7 @@
 - Xcode 13.1
 - Swift 5.5
 - iOS 15
+- Docker for running mock server (optional)
 
 ## Coding style reference
 
@@ -30,6 +31,30 @@
 2. Build to simulator
 
 - Remark: No camera feature in simulator
+
+
+### Playground
+
+#### Connect to local mock server
+
+```bash
+cd mock-server
+sh start.sh
+```
+
+#### Switch to mock data
+
+- In Core/AppConfig, chnage it to true
+
+```swift
+static let mock = true
+```
+
+#### Connect to remote server
+
+```swift
+static let host = "http://127.0.0.1:8080/"
+```
 
 ## Heart rate detection
 

@@ -57,7 +57,6 @@ extension ProfileView {
                 return
             }
             userManager.user = UserModel(
-                id: response.id,
                 firstname: response.firstname,
                 lastname: response.lastname,
                 email: response.email,
