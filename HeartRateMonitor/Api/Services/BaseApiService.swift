@@ -8,9 +8,13 @@
 import Foundation
 
 class BaseApiService {
-    let host = "http://127.0.0.1:8080/"
-    let timeoutInterval: Double = 30
-    var token: String? = nil
+    private let host = AppConfig.host
+    private let timeoutInterval: Double = 30
+    private var token: String? = nil
+
+    init(token: String? = nil) {
+        self.token = token
+    }
 
     enum HttpMethod {
         case get, post, put, patch, delete
@@ -26,6 +30,11 @@ class BaseApiService {
         }
     }
 
+    enum ContentType: String {
+        case json = "application/json"
+        case pdf = "application/pdf"
+    }
+
     func withHost(_ url: String) -> String {
         return "\(host)\(url)"
     }
@@ -34,7 +43,8 @@ class BaseApiService {
         _ responseType: R.Type,
         url: String,
         method: HttpMethod,
-        parameters: Data? = nil
+        parameters: Data? = nil,
+        contentType: ContentType? = .json
     ) async throws -> R? {
         guard let url = URL(string: url) else {
             Logger.d("invalid url=\(url) ")
@@ -47,13 +57,16 @@ class BaseApiService {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        if let contentType = contentType {
+            request.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
+            request.setValue(contentType.rawValue, forHTTPHeaderField: "Accept")
+        }
 
         if let parameters = parameters {
             request.httpBody = parameters
         }
 
+//        Logger.d(request.allHTTPHeaderFields)
         let (data, response) = try await URLSession.shared.data(from: url)
 
         if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
@@ -68,25 +81,5 @@ class BaseApiService {
             Logger.d("Invalid Response")
             return nil
         }
-
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-//                Logger.d("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                Logger.d("response = \(String(describing: response))")
-//            }
-//            if let data = data {
-//                // TODO: response
-////                if let books = try? JSONDecoder().decode([Book].self, from: data) {
-////                    print(books)
-////                } else {
-////                    print("Invalid Response")
-////                }
-//                Logger.d(data)
-//            } else if let error = error {
-//                Logger.d(error)
-//            }
-//        }
-//        task.resume()
-//        return nil
     }
 }

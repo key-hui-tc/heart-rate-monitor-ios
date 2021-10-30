@@ -12,15 +12,17 @@
 import SwiftUI
 
 class ApiManager: ObservableObject {
+    var token: String?
+
     func customer() -> CustomerService {
-        return CustomerService()
+        return CustomerService(token: token)
     }
 
     func genetics() -> GeneticsService {
-        return GeneticsService()
+        return GeneticsService(token: token)
     }
 
     func lifestyle() -> LifestyleService {
-        return LifestyleService()
+        return LifestyleService(token: token)
     }
 }

@@ -26,6 +26,7 @@ struct ProfileView: View {
             Button("LOGOUT") {
                 Logger.d("logout")
                 userManager.logout()
+                apiManager.token = nil
             }
             Spacer()
         }

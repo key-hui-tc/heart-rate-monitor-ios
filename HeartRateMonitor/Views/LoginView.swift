@@ -50,7 +50,7 @@ struct LoginView: View {
             }
         }.onAppear {
             #if DEBUG
-                if AppGlobal.mock {
+                if AppConfig.mock {
                     username = MockData.username
                     password = MockData.password
                 }
@@ -131,6 +131,7 @@ extension LoginView {
             Logger.d(response)
             if let token = response?.token {
                 userManager.login(token: token)
+                apiManager.token = token
                 authenticationDidFail = false
             } else {
                 authenticationDidFail = true

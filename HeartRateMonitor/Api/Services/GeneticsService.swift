@@ -18,7 +18,8 @@ class GeneticsService: BaseApiService {
             let response = try await makeRequest(
                 PdfResponse.self,
                 url: url,
-                method: .get
+                method: .get,
+                contentType: .pdf
             )
             Logger.d(response)
             return response

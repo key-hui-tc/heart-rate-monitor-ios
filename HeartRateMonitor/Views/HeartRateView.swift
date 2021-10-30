@@ -97,6 +97,7 @@ extension HeartRateView {
                     }
                 } else {
                     pulseMessage = "\(lroundf(pulse)) BPM"
+                    postHeartRate(value: pulse)
                 }
             })
         }
@@ -106,7 +107,7 @@ extension HeartRateView {
         timer?.invalidate()
     }
 
-    func handle(buffer: CMSampleBuffer) {
+    private func handle(buffer: CMSampleBuffer) {
         let isPassed = vm.handle(buffer: buffer)
         if isPassed {
             message = txtHold
@@ -119,6 +120,20 @@ extension HeartRateView {
             isMeasurementStarted = false
             stopMeasurement()
             resetMessages()
+        }
+    }
+
+    private func postHeartRate(value: Float) {
+        // call api
+        Task {
+            guard let userId = userManager.getId() else {
+                Logger.d("Missing userId")
+                return
+            }
+            let timestamp = "\(Date().timeIntervalSince1970)"
+            let request = HeartRateRequest(rate: "\(value)", timestamp: timestamp)
+            Logger.d(request)
+            _ = await apiManager.lifestyle().postHeartRate(id: userId, request: request)
         }
     }
 
