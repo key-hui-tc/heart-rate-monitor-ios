@@ -22,4 +22,11 @@ class UserManager: ObservableObject {
         token = nil
         self.isLogged = false
     }
+
+    func getId() -> Int64? {
+        if AppGlobal.mock {
+            return 0
+        }
+        return user?.id
+    }
 }

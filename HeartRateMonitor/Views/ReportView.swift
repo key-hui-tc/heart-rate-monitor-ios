@@ -56,13 +56,9 @@ struct ReportView_Previews: PreviewProvider {
 
 extension ReportView {
     func getGeneticDetails() {
-        if AppGlobal.mock {
-            genotypes = MockUtils.geneticResponse.genotypes
-            return
-        }
         // call api
         Task {
-            guard let userId = userManager.user?.id else {
+            guard let userId = userManager.getId() else {
                 isPresentedAlert = true
                 errMessage = "Missing userId"
                 return
@@ -74,14 +70,9 @@ extension ReportView {
     }
 
     func presentReport() {
-        if AppGlobal.mock {
-            pdfUrl = MockUtils.pdfUrl
-            isPresentedPdf.toggle()
-            return
-        }
         // call api
         Task {
-            guard let userId = userManager.user?.id else {
+            guard let userId = userManager.getId() else {
                 isPresentedAlert = true
                 errMessage = "Missing userId"
                 return
@@ -94,6 +85,7 @@ extension ReportView {
                 return
             }
             pdfData = response.data
+            pdfUrl = response.url
             isPresentedPdf.toggle()
         }
     }

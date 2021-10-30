@@ -9,4 +9,5 @@ import Foundation
 
 struct PdfResponse: BaseResponse {
     let data: Data
+    let url: URL
 }
