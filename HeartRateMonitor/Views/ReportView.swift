@@ -21,7 +21,10 @@ struct ReportView: View {
         VStack {
             Spacer(minLength: 8)
             Text("Genetic details")
-            Spacer().frame(maxWidth: .infinity)
+            List(MockUtils.geneticResponse.genotypes, id: \.id) { genotype in
+                Text("\(genotype.name) - \(genotype.symbol)")
+            }
+//            Spacer().frame(maxWidth: .infinity)
             Divider()
             Button(action: presentReport) {
                 Text("View PDF report")
@@ -38,7 +41,6 @@ struct ReportView: View {
             }
             Spacer(minLength: 20)
         }
-            .padding()
     }
 }
 
