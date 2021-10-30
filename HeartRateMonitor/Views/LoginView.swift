@@ -77,8 +77,10 @@ struct LoginView: View {
             }
         }.onAppear {
             #if DEBUG
-                username = UserManager.debugUsername
-                password = UserManager.debugPassword
+                if AppGlobal.mock {
+                    username = MockUtils.username
+                    password = MockUtils.password
+                }
             #endif
         }
     }

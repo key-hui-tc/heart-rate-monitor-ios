@@ -46,4 +46,21 @@ class CustomerService: BaseApiService {
         }
         return nil
     }
+
+    func user() async -> UserResponse? {
+        let url = withHost(Path.user.rawValue)
+        Logger.d(url)
+        do {
+            let response = try await makeRequest(
+                UserResponse.self,
+                url: url,
+                method: .get
+            )
+            Logger.d(response)
+            return response
+        } catch {
+            Logger.d("Request failed: \(error)")
+        }
+        return nil
+    }
 }

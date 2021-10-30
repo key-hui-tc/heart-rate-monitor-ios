@@ -10,9 +10,8 @@ import PDFKit
 
 struct PdfView: View {
     @Environment(\.presentationMode) var presentationMode
-
-    let url: URL?
-    let data: Data?
+    @Binding var url: URL?
+    @Binding var data: Data?
 
     var body: some View {
         NavigationView {
@@ -33,8 +32,11 @@ struct PdfView: View {
 }
 
 struct PdfView_Previews: PreviewProvider {
+    @State static var url: URL? = MockUtils.pdfUrl
+    @State static var data: Data? = Data()
+
     static var previews: some View {
-        PdfView(url: MockUtils.pdfUrl, data: nil)
+        PdfView(url: $url, data: $data)
     }
 }
 

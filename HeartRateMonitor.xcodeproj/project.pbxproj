@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F195B69272D6D4E008DFFFE /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B68272D6D4E008DFFFE /* UserResponse.swift */; };
+		3F195B6B272D6E78008DFFFE /* AppGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F195B6A272D6E78008DFFFE /* AppGlobal.swift */; };
 		3F24057F272D00730069E5B5 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24057E272D00730069E5B5 /* ReportView.swift */; };
 		3F54D7682728512500917576 /* HeartRateMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7672728512500917576 /* HeartRateMonitorApp.swift */; };
 		3F54D76A2728512500917576 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7692728512500917576 /* LoginView.swift */; };
@@ -70,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F195B68272D6D4E008DFFFE /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		3F195B6A272D6E78008DFFFE /* AppGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGlobal.swift; sourceTree = "<group>"; };
 		3F24057E272D00730069E5B5 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		3F54D7642728512500917576 /* HeartRateMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeartRateMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F54D7672728512500917576 /* HeartRateMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorApp.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 		CE3520952728E693005DDB68 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3F195B6A272D6E78008DFFFE /* AppGlobal.swift */,
 				CE8CF91327294D5300C5BC5F /* UserManager.swift */,
 			);
 			path = Core;
@@ -267,6 +272,7 @@
 				CE3520B327290ED1005DDB68 /* GeneticResponse.swift */,
 				CE3520B127290E07005DDB68 /* LoginResponse.swift */,
 				CE9B3792272BE57C00DB6CA1 /* PdfResponse.swift */,
+				3F195B68272D6D4E008DFFFE /* UserResponse.swift */,
 				CE9B3790272BE2A500DB6CA1 /* VoidResponse.swift */,
 			);
 			path = Responses;
@@ -459,6 +465,7 @@
 				CE35209F2728F573005DDB68 /* Logger.swift in Sources */,
 				CE8CF918272952C400C5BC5F /* LifestyleService.swift in Sources */,
 				CE3520B427290ED1005DDB68 /* GeneticResponse.swift in Sources */,
+				3F195B6B272D6E78008DFFFE /* AppGlobal.swift in Sources */,
 				CE9B378F272BABA100DB6CA1 /* HeartRateViewModel.swift in Sources */,
 				CE9B3784272B92BE00DB6CA1 /* VideoSpec.swift in Sources */,
 				CE9B3791272BE2A500DB6CA1 /* VoidResponse.swift in Sources */,
@@ -469,6 +476,7 @@
 				CE9B3788272B93DF00DB6CA1 /* PulseDetector.swift in Sources */,
 				CE8CF91C272952E700C5BC5F /* GeneticsService.swift in Sources */,
 				CE9B3793272BE57C00DB6CA1 /* PdfResponse.swift in Sources */,
+				3F195B69272D6D4E008DFFFE /* UserResponse.swift in Sources */,
 				CE9B378D272B962F00DB6CA1 /* CameraType.swift in Sources */,
 				CE8CF91E2729531100C5BC5F /* BaseApiService.swift in Sources */,
 				3F5E91A9272D42840084A548 /* MockUtils.swift in Sources */,

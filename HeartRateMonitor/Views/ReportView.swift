@@ -16,21 +16,23 @@ struct ReportView: View {
     @State private var pdfUrl: URL? = nil
     @State private var pdfData: Data? = nil
     @State private var errMessage: String = ""
+    @State private var genotypes: Array<GenotypeModel> = []
 
     var body: some View {
         VStack {
             Spacer(minLength: 8)
             Text("Genetic details")
-            List(MockUtils.geneticResponse.genotypes, id: \.id) { genotype in
+            List(genotypes, id: \.id) { genotype in
                 Text("\(genotype.name) - \(genotype.symbol)")
             }
+                .frame(maxHeight: .infinity)
 //            Spacer().frame(maxWidth: .infinity)
             Divider()
             Button(action: presentReport) {
                 Text("View PDF report")
             }
                 .fullScreenCover(isPresented: $isPresentedPdf) {
-                PdfView(url: pdfUrl, data: pdfData)
+                PdfView(url: $pdfUrl, data: $pdfData)
             }
                 .alert(isPresented: $isPresentedAlert) {
                 Alert(
@@ -40,6 +42,8 @@ struct ReportView: View {
                 )
             }
             Spacer(minLength: 20)
+        }.onAppear {
+            getGeneticDetails()
         }
     }
 }
@@ -51,7 +55,30 @@ struct ReportView_Previews: PreviewProvider {
 }
 
 extension ReportView {
+    func getGeneticDetails() {
+        if AppGlobal.mock {
+            genotypes = MockUtils.geneticResponse.genotypes
+            return
+        }
+        // call api
+        Task {
+            guard let userId = userManager.user?.id else {
+                isPresentedAlert = true
+                errMessage = "Missing userId"
+                return
+            }
+            let response = await apiManager.genetics.getGeneticDetails(id: userId)
+            Logger.d(response)
+            genotypes = response?.genotypes ?? []
+        }
+    }
+
     func presentReport() {
+        if AppGlobal.mock {
+            pdfUrl = MockUtils.pdfUrl
+            isPresentedPdf.toggle()
+            return
+        }
         // call api
         Task {
             guard let userId = userManager.user?.id else {

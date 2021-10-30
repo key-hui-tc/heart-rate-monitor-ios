@@ -8,6 +8,8 @@
 import UIKit
 
 struct MockUtils {
+    static let username = "Tester"
+    static let password = "pass"
     static let pdfUrl = URL(string: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")!
 
     static let geneticResponse: GeneticResponse = {
@@ -33,5 +35,18 @@ struct MockUtils {
         arr.append(contentsOf: arr)
         arr.shuffle()
         return GeneticResponse(genotypes: arr)
+    }()
+
+    static let loginResponse: LoginResponse = {
+        return LoginResponse(token: "Token1234")
+    }()
+
+    static let userResponse: UserResponse = {
+        return UserResponse(
+            firstName: "Tester",
+            lastName: "Demo",
+            email: "test@eaxmple.com",
+            dob: "2000-01-01"
+        )
     }()
 }
