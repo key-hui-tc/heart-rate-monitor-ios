@@ -23,33 +23,6 @@ struct LoginView: View {
     @State var authenticationDidFail = false
     @State var authenticationDidSucceed = false
 
-    func isValidInputs() -> Bool {
-        if username.isEmpty || password.isEmpty {
-            return false
-        }
-        return true
-    }
-
-    func onTapLogin() {
-        guard isValidInputs() else {
-            authenticationDidFail = true
-            return
-        }
-
-        // call api
-        let request = LoginRequest(username: username, password: password)
-        Task {
-            let response = await apiManager.customer().login(request: request)
-            Logger.d(response)
-            if let token = response?.token {
-                userManager.login(token: token)
-                authenticationDidFail = false
-            } else {
-                authenticationDidFail = true
-            }
-        }
-    }
-
     var body: some View {
         ZStack {
             VStack {
@@ -114,7 +87,6 @@ struct LoginButtonText: View {
 }
 
 struct UsernameTextField: View {
-
     @Binding var username: String
 
     var body: some View {
@@ -127,7 +99,6 @@ struct UsernameTextField: View {
 }
 
 struct PasswordSecureField: View {
-
     @Binding var password: String
 
     var body: some View {
@@ -136,5 +107,34 @@ struct PasswordSecureField: View {
             .background(lightGreyColor)
             .cornerRadius(5.0)
             .padding(.bottom, 20)
+    }
+}
+
+extension LoginView {
+    func isValidInputs() -> Bool {
+        if username.isEmpty || password.isEmpty {
+            return false
+        }
+        return true
+    }
+
+    func onTapLogin() {
+        guard isValidInputs() else {
+            authenticationDidFail = true
+            return
+        }
+
+        // call api
+        let request = LoginRequest(username: username, password: password)
+        Task {
+            let response = await apiManager.customer().login(request: request)
+            Logger.d(response)
+            if let token = response?.token {
+                userManager.login(token: token)
+                authenticationDidFail = false
+            } else {
+                authenticationDidFail = true
+            }
+        }
     }
 }

@@ -32,11 +32,33 @@ struct HomeView: View {
                 Label("Profile", systemImage: "person.fill")
             }
         }
+            .onAppear {
+            getUser()
+        }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+    }
+}
+
+extension HomeView {
+    func getUser() {
+        // call api
+        Task {
+            let response = await apiManager.customer().user()
+            guard let response = response else {
+                return
+            }
+            userManager.user = UserModel(
+                id: response.id,
+                firstName: response.firstName,
+                lastName: response.lastName,
+                email: response.email,
+                dob: response.dob
+            )
+        }
     }
 }

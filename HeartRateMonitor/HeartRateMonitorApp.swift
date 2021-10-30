@@ -15,10 +15,15 @@ struct HeartRateMonitorApp: App {
     @ObservedObject private var apiManager = ApiManager()
 
     init() {
-        Logger.d("init")
         if AppGlobal.mock {
             userManager = MockUserManager()
             apiManager = MockApiManager()
+        }
+
+        // auto loggedIn if token exist
+        if let token = UserDefaultsUtils.loadToken() {
+            Logger.d("token=\(token)")
+            userManager.login(token: token)
         }
     }
 

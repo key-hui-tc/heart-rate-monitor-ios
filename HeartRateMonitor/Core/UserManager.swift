@@ -10,17 +10,18 @@ import SwiftUI
 class UserManager: ObservableObject {
     @Published var isLogged = false
     @Published var user: UserModel?
-
-    var token: String? = nil
+    @Published var token: String? = nil
 
     func login(token: String) {
         self.token = token
         self.isLogged = true
+        UserDefaultsUtils.saveToken(token)
     }
 
     func logout() {
         token = nil
         self.isLogged = false
+        UserDefaultsUtils.removeToken()
     }
 
     func getId() -> Int64? {

@@ -10,27 +10,27 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var apiManager: ApiManager
-    @State private var user: UserModel?
 
     var body: some View {
         VStack {
             Spacer()
-            Text("First name: \(user?.firstName ?? "-")")
+            Text("First name: \(userManager.user?.firstName ?? "-")")
                 .padding()
-            Text("Last name: \(user?.lastName ?? "-")")
+            Text("Last name: \(userManager.user?.lastName ?? "-")")
                 .padding()
-            Text("Email: \(user?.email ?? "-")")
+            Text("Email: \(userManager.user?.email ?? "-")")
                 .padding()
-            Text("Date of birth: \(user?.dob ?? "-")")
+            Text("Date of birth: \(userManager.user?.dob ?? "-")")
                 .padding()
             Spacer(minLength: 44)
             Button("LOGOUT") {
                 Logger.d("logout")
-                userManager.isLogged = false
+                userManager.logout()
             }
             Spacer()
         }
             .onAppear {
+            // update again
             getUser()
         }
     }
@@ -50,7 +50,7 @@ extension ProfileView {
             guard let response = response else {
                 return
             }
-            user = UserModel(
+            userManager.user = UserModel(
                 id: response.id,
                 firstName: response.firstName,
                 lastName: response.lastName,
