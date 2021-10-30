@@ -117,6 +117,7 @@
             },
             "examples": {
               "application/json": {
+                "id": 0,
                 "firstname": "Tester",
                 "lastname": "Swift",
                 "email": "test@example.com",

@@ -12,3 +12,8 @@ struct GenotypeModel: BaseModel {
     let name: String
     let symbol: String
 }
+
+struct GenotypeModelForApi: BaseModel {
+    let name: String
+    let symbol: String
+}

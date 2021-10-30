@@ -46,8 +46,8 @@ struct MockData {
     static let userResponse: UserResponse = {
         return UserResponse(
             id: 0,
-            firstName: "Tester",
-            lastName: "Demo",
+            firstname: "Tester",
+            lastname: "Demo",
             email: "test@eaxmple.com",
             dob: "2000-01-01"
         )

@@ -25,6 +25,7 @@ class UserManager: ObservableObject {
     }
 
     func getId() -> Int64? {
-        return user?.id
+        // using fake id
+        return user?.id ?? 1
     }
 }

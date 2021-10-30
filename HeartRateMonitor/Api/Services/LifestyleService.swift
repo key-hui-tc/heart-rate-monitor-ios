@@ -7,7 +7,7 @@
 
 class LifestyleService: BaseApiService {
     enum Path: String {
-        case heartRate = "customer/:id/heartrate"
+        case heartRate = "v1/customer/:id/heartrate"
     }
 
     func postHeartRate(id: Int64, request: HeartRateRequest) async -> VoidResponse? {

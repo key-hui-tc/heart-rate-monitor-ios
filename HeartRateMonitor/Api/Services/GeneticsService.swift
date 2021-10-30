@@ -7,8 +7,8 @@
 
 class GeneticsService: BaseApiService {
     enum Path: String {
-        case report = "customer/:id/report"
-        case genetic = "customer/:id/genetic"
+        case report = "v1/customer/:id/report"
+        case genetic = "v1/customer/:id/genetic"
     }
 
     func getHealthReport(id: Int64) async -> PdfResponse? {

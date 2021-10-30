@@ -7,9 +7,9 @@
 
 class CustomerService: BaseApiService {
     enum Path: String {
-        case login = "customer/login"
-        case logout = "customer/logout"
-        case user = "customer/:id/user"
+        case login = "v1/customer/login"
+        case logout = "v1/customer/logout"
+        case user = "v1/customer/:id/user"
     }
 
     func login(request: LoginRequest) async -> LoginResponse? {
@@ -47,8 +47,8 @@ class CustomerService: BaseApiService {
         return nil
     }
 
-    func user() async -> UserResponse? {
-        let url = withHost(Path.user.rawValue)
+    func user(id: Int64) async -> UserResponse? {
+        let url = withHost(Path.user.rawValue).withId(id: id)
         Logger.d(url)
         do {
             let response = try await makeRequest(

@@ -67,11 +67,24 @@ class BaseApiService {
         }
 
 //        Logger.d(request.allHTTPHeaderFields)
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await URLSession.shared.data(for: request)
 
         if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
             Logger.d("statusCode should be 200, but is \(httpStatus.statusCode)")
             Logger.d("response = \(String(describing: response))")
+        }
+
+        // dirty fix, suppose to change the API response format better
+        if R.self == GeneticResponse.self {
+            if let array = try? JSONDecoder().decode([GenotypeModelForApi].self, from: data) {
+                Logger.d(array)
+                let genotypes = array.map { item in
+                    return GenotypeModel(name: item.name, symbol: item.symbol)
+                }
+                return GeneticResponse(genotypes: genotypes) as? R
+            } else {
+                return nil
+            }
         }
 
         if let result = try? JSONDecoder().decode(R.self, from: data) {

@@ -14,9 +14,9 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("First name: \(userManager.user?.firstName ?? "-")")
+            Text("First name: \(userManager.user?.firstname ?? "-")")
                 .padding()
-            Text("Last name: \(userManager.user?.lastName ?? "-")")
+            Text("Last name: \(userManager.user?.lastname ?? "-")")
                 .padding()
             Text("Email: \(userManager.user?.email ?? "-")")
                 .padding()
@@ -45,16 +45,21 @@ struct ProfileView_Previews: PreviewProvider {
 
 extension ProfileView {
     func getUser() {
+        guard let userId = userManager.getId() else {
+            Logger.d("Missing userId")
+            return
+        }
         // call api
         Task {
-            let response = await apiManager.customer().user()
+            let response = await apiManager.customer().user(id: userId)
             guard let response = response else {
+                Logger.d("Invalid response")
                 return
             }
             userManager.user = UserModel(
                 id: response.id,
-                firstName: response.firstName,
-                lastName: response.lastName,
+                firstname: response.firstname,
+                lastname: response.lastname,
                 email: response.email,
                 dob: response.dob
             )

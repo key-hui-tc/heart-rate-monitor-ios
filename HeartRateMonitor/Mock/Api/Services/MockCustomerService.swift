@@ -14,7 +14,7 @@ class MockCustomerService: CustomerService {
         return VoidResponse()
     }
 
-    override func user() async -> UserResponse? {
+    override func user(id: Int64) async -> UserResponse? {
         return MockData.userResponse
     }
 }

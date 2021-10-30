@@ -7,8 +7,8 @@
 
 struct UserResponse: BaseResponse {
     let id: Int64
-    let firstName: String
-    let lastName: String
+    let firstname: String
+    let lastname: String
     let email: String
     let dob: String
 }

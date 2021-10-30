@@ -46,16 +46,21 @@ struct HomeView_Previews: PreviewProvider {
 
 extension HomeView {
     func getUser() {
+        guard let userId = userManager.getId() else {
+            Logger.d("Missing userId")
+            return
+        }
         // call api
         Task {
-            let response = await apiManager.customer().user()
+            let response = await apiManager.customer().user(id: userId)
             guard let response = response else {
+                Logger.d("Invalid response")
                 return
             }
             userManager.user = UserModel(
                 id: response.id,
-                firstName: response.firstName,
-                lastName: response.lastName,
+                firstname: response.firstname,
+                lastname: response.lastname,
                 email: response.email,
                 dob: response.dob
             )

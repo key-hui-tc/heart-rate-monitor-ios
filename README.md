@@ -1,33 +1,43 @@
 # heart-rate-monitor-ios
 
-### Requirements
+## Requirements
 
 - Xcode 13.1
 - Swift 5.5
 - iOS 15
 
-
-### Coding style reference
+## Coding style reference
 
 - https://google.github.io/swift/
 
+## Heart rate detection reference
 
-- https://github.com/rorodriguez116/SwiftCamera/tree/main/SwiftCamera
+- https://github.com/athanasiospap/Pulse
 
 
-## Objectives
-As part of our preventive health care services, we would like our customers to be able to monitor their heart rate in order to allow themselves to better manage their stress levels and overall health conditions.
+## Getting started
 
-## Questions
-Design a simple mobile application to access login, logout and view genetic results
-Extend the mobile application to record heart rate and record using the POST `/customer/{customerId}/heartrate` endpoint 
+### [iPhone]
 
-## Criteria
-For the solution, provide us your source code. You should also provide 
-1. instructions to bring up the application.
-2. an explanation on how you capture heart rate
-3. a testing strategy for the application.
+1. Prepare a iPhone which is iOS 15+ and plugin the testing machine (Mac)
+2. Open Xcode by clicking `HeartRateMonitor.xcodeproj`
+3. Select Project Settings -> Select Signing & Capabilities -> Update Team & Bundle Identifier
+4. Build to connected iPhone
 
-App references
-* [Instant Heart Rate by Azumio](https://www.azumio.com/apps/instant-heart-rate/overview)
-* [Welltory](https://welltory.com/)
+### [iOS simulator]
+
+1. Open Xcode by clicking `HeartRateMonitor.xcodeproj`
+2. Build to simulator
+
+- Remark: No camera feature in simulator
+
+## Heart rate detection
+
+1. 
+
+
+## Testing strategy
+
+1. For API & UI, use mock data for local testing
+2. For UITests, test the existance of displaying elements in all views
+3. For heart rate detection, prepare a recorded video for testing
