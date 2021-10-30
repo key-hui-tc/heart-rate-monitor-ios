@@ -13,6 +13,17 @@ class UserManager: ObservableObject {
 
     var token: String? = nil
 
-    let storedUsername = "Tester"
-    let storedPassword = "pass"
+    // debug locally
+    static let debugUsername = "Tester"
+    static let debugPassword = "pass"
+
+    func login(token: String) {
+        self.token = token
+        self.isLogged = true
+    }
+
+    func logout() {
+        token = nil
+        self.isLogged = false
+    }
 }

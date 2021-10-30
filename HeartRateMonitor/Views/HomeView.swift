@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct HomeView: View {
-
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var apiManager: ApiManager
 
     var body: some View {
         TabView {
-            HeartRateView()
-                .tabItem {
-                Label("Heart Rate", systemImage: "heart.fill")
-            }
             ProfileView()
+                .environmentObject(userManager)
+                .environmentObject(apiManager)
                 .tabItem {
                 Label("Profile", systemImage: "list.dash")
+            }
+            HeartRateView()
+                .environmentObject(userManager)
+                .environmentObject(apiManager)
+                .tabItem {
+                Label("Heart Rate", systemImage: "heart.fill")
             }
         }
     }

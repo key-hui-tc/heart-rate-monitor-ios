@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
-
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var apiManager: ApiManager
 
     var body: some View {
         VStack {

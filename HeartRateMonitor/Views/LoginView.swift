@@ -15,26 +15,39 @@ let lightGreyColor = Color(
 )
 
 struct LoginView: View {
-
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var apiManager: ApiManager
 
     @State var username = ""
     @State var password = ""
     @State var authenticationDidFail = false
     @State var authenticationDidSucceed = false
 
+    func isValidInputs() -> Bool {
+        if username.isEmpty || password.isEmpty {
+            return false
+        }
+        return true
+    }
+
     func onTapLogin() {
-        userManager.isLogged = true
-        // TODO: validation
-//        if self.username == userManager.storedUsername &&
-//            self.password == userManager.storedPassword {
-//            self.authenticationDidSucceed = true
-//            self.authenticationDidFail = false
-//            userManager.isLogged = true
-//        } else {
-//            self.authenticationDidFail = true
-//            userManager.isLogged = false
-//        }
+        guard isValidInputs() else {
+            authenticationDidFail = true
+            return
+        }
+
+        // remote
+        let request = LoginRequest(username: username, password: password)
+        Task {
+            let response = await apiManager.customer.login(request: request)
+            Logger.d(response)
+            if let token = response?.token {
+                userManager.login(token: token)
+                authenticationDidFail = false
+            } else {
+                authenticationDidFail = true
+            }
+        }
     }
 
     var body: some View {
@@ -62,6 +75,11 @@ struct LoginView: View {
                     .cornerRadius(20.0)
                     .foregroundColor(.white)
             }
+        }.onAppear {
+            #if DEBUG
+                username = UserManager.debugUsername
+                password = UserManager.debugPassword
+            #endif
         }
     }
 }

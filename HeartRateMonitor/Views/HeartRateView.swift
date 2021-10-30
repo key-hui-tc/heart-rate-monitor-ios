@@ -9,7 +9,11 @@ import SwiftUI
 import AVFoundation
 
 struct HeartRateView: View {
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var apiManager: ApiManager
+    
     @StateObject private var vm = HeartRateViewModel()
+    
     @State private var pulse: Float = 0
     @State private var pulseMessage = ""
     @State private var message = ""
