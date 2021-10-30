@@ -20,7 +20,7 @@ struct HeartRateMonitorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if userManager.isLogged {
+            if !userManager.isLogged {
                 HomeView()
                     .environmentObject(userManager)
                     .environmentObject(apiManager)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F24057F272D00730069E5B5 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F24057E272D00730069E5B5 /* ReportView.swift */; };
 		3F54D7682728512500917576 /* HeartRateMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7672728512500917576 /* HeartRateMonitorApp.swift */; };
 		3F54D76A2728512500917576 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F54D7692728512500917576 /* LoginView.swift */; };
 		3F54D76C2728512700917576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F54D76B2728512700917576 /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F24057E272D00730069E5B5 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		3F54D7642728512500917576 /* HeartRateMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeartRateMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F54D7672728512500917576 /* HeartRateMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorApp.swift; sourceTree = "<group>"; };
 		3F54D7692728512500917576 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				CE9B377E272B911B00DB6CA1 /* ColorUtils.swift */,
+				CE9B3795272BE96B00DB6CA1 /* FileUtils.swift */,
 				CE9B3785272B936A00DB6CA1 /* Filter.swift */,
 				CE35209E2728F573005DDB68 /* Logger.swift */,
 				CE9B3787272B93DF00DB6CA1 /* PulseDetector.swift */,
@@ -272,7 +275,7 @@
 				CE3AB37D272A4EA700781131 /* HomeView.swift */,
 				3F54D7692728512500917576 /* LoginView.swift */,
 				CE3AB37F272A98B500781131 /* ProfileView.swift */,
-				CE9B3795272BE96B00DB6CA1 /* FileUtils.swift */,
+				3F24057E272D00730069E5B5 /* ReportView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				CE3520AD27290980005DDB68 /* GenotypeModel.swift in Sources */,
 				CE35209C2728E7D3005DDB68 /* UserModel.swift in Sources */,
 				CE9B377F272B911B00DB6CA1 /* ColorUtils.swift in Sources */,
+				3F24057F272D00730069E5B5 /* ReportView.swift in Sources */,
 				CE3AB385272A9FE000781131 /* CameraView.swift in Sources */,
 				3F54D7682728512500917576 /* HeartRateMonitorApp.swift in Sources */,
 				CE3520AB2729093B005DDB68 /* HeartRateModel.swift in Sources */,

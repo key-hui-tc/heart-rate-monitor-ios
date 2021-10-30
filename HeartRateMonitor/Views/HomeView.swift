@@ -13,17 +13,23 @@ struct HomeView: View {
 
     var body: some View {
         TabView {
-            ProfileView()
+            ReportView()
                 .environmentObject(userManager)
                 .environmentObject(apiManager)
                 .tabItem {
-                Label("Profile", systemImage: "list.dash")
+                Label("Report", systemImage: "list.bullet.rectangle")
             }
             HeartRateView()
                 .environmentObject(userManager)
                 .environmentObject(apiManager)
                 .tabItem {
                 Label("Heart Rate", systemImage: "heart.fill")
+            }
+            ProfileView()
+                .environmentObject(userManager)
+                .environmentObject(apiManager)
+                .tabItem {
+                Label("Profile", systemImage: "person.fill")
             }
         }
     }
