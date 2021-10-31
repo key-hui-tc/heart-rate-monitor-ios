@@ -8,11 +8,38 @@
 import SwiftUI
 import AVKit
 
+// TODO: work in progress, for testing by video
 struct VideoPlayerView: View {
-    let player = AVPlayer(url: Bundle.main.url(forResource: "demo", withExtension: "mp4")!)
+    @StateObject private var vm = HeartRateViewModel()
+
+    private let url = Bundle.main.url(forResource: "demo", withExtension: "mp4")!
+    private let player: AVPlayer
 
     init() {
-        let url = Bundle.main.url(forResource: "demo", withExtension: "mp4")!
+        player = AVPlayer(url: url)
+        player.isMuted = true
+        player.play()
+    }
+
+    var body: some View {
+        VideoPlayer(player: player)
+            .frame(width: 67.5, height: 120)
+            .onAppear {
+            onAppear()
+        }.onDisappear() {
+            player.pause()
+        }
+    }
+}
+
+struct VideoPlayerView_Previews: PreviewProvider {
+    static var previews: some View {
+        VideoPlayerView()
+    }
+}
+
+extension VideoPlayerView {
+    func onAppear() {
         let asset = AVAsset(url: url)
         let reader = try! AVAssetReader(asset: asset)
         let videoTrack = asset.tracks(withMediaType: AVMediaType.video)[0]
@@ -22,23 +49,15 @@ struct VideoPlayerView: View {
         reader.add(trackReaderOutput)
         reader.startReading()
 
+        // uniform intervals
         while let sampleBuffer = trackReaderOutput.copyNextSampleBuffer() {
-            print("sample at time \(CMSampleBufferGetPresentationTimeStamp(sampleBuffer))")
-            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-                Logger.d(imageBuffer)
-            }
+            let time = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+            Logger.d("time: \(time.value), timescale: \(time.timescale)")
+            _ = vm.handle(buffer: sampleBuffer)
+            let average = vm.pulseDetector.getAverage()
+            let pulse = 60.0 / average
+            let pulseMessage = "\(lroundf(pulse)) BPM"
+            Logger.d(pulseMessage)
         }
-    }
-
-    var body: some View {
-        VideoPlayer(player: player)
-            .onAppear {
-        }
-    }
-}
-
-struct VideoPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        VideoPlayerView()
     }
 }

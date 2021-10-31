@@ -34,8 +34,6 @@ struct HeartRateMonitorApp: App {
                 HomeView()
                     .environmentObject(userManager)
                     .environmentObject(apiManager)
-//                    .animation(.easeOut(duration: 0.5))
-//                    .transition(.move(edge: .trailing))
             } else {
                 LoginView()
                     .environmentObject(userManager)
