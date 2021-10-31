@@ -7,7 +7,7 @@
 
 struct AppConfig {
     // for testing
-    static let mock = false
+    static let mock = true
     // api host
     static let host = "http://127.0.0.1:8080/"
 }

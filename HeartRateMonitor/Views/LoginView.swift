@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-let lightGreyColor = Color(
-    red: 239.0 / 255.0,
-    green: 243.0 / 255.0,
-    blue: 244.0 / 255.0,
-    opacity: 1.0
-)
-
 struct LoginView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var apiManager: ApiManager
@@ -92,7 +85,7 @@ struct UsernameTextField: View {
     var body: some View {
         TextField("Username", text: $username)
             .padding()
-            .background(lightGreyColor)
+            .background(.gray)
             .cornerRadius(5.0)
             .padding(.bottom, 20)
     }
@@ -104,7 +97,7 @@ struct PasswordSecureField: View {
     var body: some View {
         SecureField("Password", text: $password)
             .padding()
-            .background(lightGreyColor)
+            .background(.gray)
             .cornerRadius(5.0)
             .padding(.bottom, 20)
     }
