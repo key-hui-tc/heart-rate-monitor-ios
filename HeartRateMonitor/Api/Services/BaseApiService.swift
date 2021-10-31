@@ -39,13 +39,10 @@ class BaseApiService {
         return "\(host)\(url)"
     }
 
-    func makeRequest<R: BaseModel>(
-        _ responseType: R.Type,
-        url: String,
-        method: HttpMethod,
-        parameters: Data? = nil,
-        contentType: ContentType? = .json
-    ) async throws -> R? {
+    func toRequest(url: String,
+                   method: HttpMethod,
+                   parameters: Data? = nil,
+                   contentType: ContentType? = .json) throws -> URLRequest {
         guard let url = URL(string: url) else {
             Logger.d("invalid url=\(url) ")
             throw ApiError.invalidUrl
@@ -65,26 +62,30 @@ class BaseApiService {
         if let parameters = parameters {
             request.httpBody = parameters
         }
-
 //        Logger.d(request.allHTTPHeaderFields)
+        return request
+    }
+
+    // return base model
+    func makeRequest<R: BaseModel>(
+        _ responseType: R.Type,
+        url: String,
+        method: HttpMethod,
+        parameters: Data? = nil,
+        contentType: ContentType? = .json
+    ) async throws -> R? {
+        let request = try toRequest(
+            url: url, method:
+                method,
+            parameters: parameters,
+            contentType: contentType
+        )
+
         let (data, response) = try await URLSession.shared.data(for: request)
 
         if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
             Logger.d("statusCode should be 200, but is \(httpStatus.statusCode)")
             Logger.d("response = \(String(describing: response))")
-        }
-
-        // dirty fix, suppose to change the API response format better
-        if R.self == GeneticResponse.self {
-            if let array = try? JSONDecoder().decode([GenotypeModelForApi].self, from: data) {
-                Logger.d(array)
-                let genotypes = array.map { item in
-                    return GenotypeModel(name: item.name, symbol: item.symbol)
-                }
-                return GeneticResponse(genotypes: genotypes) as? R
-            } else {
-                return nil
-            }
         }
 
         if let result = try? JSONDecoder().decode(R.self, from: data) {
@@ -95,4 +96,30 @@ class BaseApiService {
             return nil
         }
     }
+
+    // return raw data
+    func makeRequest(
+        url: String,
+        method: HttpMethod,
+        parameters: Data? = nil,
+        contentType: ContentType? = .json
+    ) async throws -> Data? {
+        let request = try toRequest(
+            url: url, method:
+                method,
+            parameters: parameters,
+            contentType: contentType
+        )
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+            Logger.d("statusCode should be 200, but is \(httpStatus.statusCode)")
+            Logger.d("response = \(String(describing: response))")
+            return nil
+        }
+
+        return data
+    }
+
 }

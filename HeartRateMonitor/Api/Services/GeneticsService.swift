@@ -5,6 +5,8 @@
 //  Created by Key Hui on 27/10/2021.
 //
 
+import Foundation
+
 class GeneticsService: BaseApiService {
     enum Path: String {
         case report = "v1/customer/:id/report"
@@ -15,14 +17,13 @@ class GeneticsService: BaseApiService {
         let url = withHost(Path.report.rawValue.withId(id: id))
         Logger.d(url)
         do {
-            let response = try await makeRequest(
-                PdfResponse.self,
-                url: url,
-                method: .get,
-                contentType: .pdf
-            )
-            Logger.d(response)
-            return response
+            if let data = try await makeRequest(
+                    url: url,
+                    method: .get,
+                    contentType: .pdf
+                ) {
+                return PdfResponse(data: data, url: nil)
+            }
         } catch {
             Logger.d("Request failed: \(error)")
         }
@@ -33,13 +34,19 @@ class GeneticsService: BaseApiService {
         let url = withHost(Path.genetic.rawValue.withId(id: id))
         Logger.d(url)
         do {
-            let response = try await makeRequest(
-                GeneticResponse.self,
-                url: url,
-                method: .get
-            )
-            Logger.d(response)
-            return response
+            if let data = try await makeRequest(
+                    url: url,
+                    method: .get
+                ) {
+                // convert to app response
+                if let array = try? JSONDecoder().decode([GenotypeModelForApi].self, from: data) {
+                    Logger.d(array)
+                    let genotypes = array.map { item in
+                        return GenotypeModel(name: item.name, symbol: item.symbol)
+                    }
+                    return GeneticResponse(genotypes: genotypes)
+                }
+            }
         } catch {
             Logger.d("Request failed: \(error)")
         }
